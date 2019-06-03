@@ -8,12 +8,12 @@ typedef struct {
     Cluster clusters[10];
 } Point;
 
-__kernel void add_idx(global Point* in_points)
+kernel void add_idx(global Point* in_points)
 {
     uint const idx = get_global_id(0);
     global Point* const point = &in_points[idx];
     for (uint cid = 0; cid < 10; ++cid) {
-        point->clusters[cid].input_ones[0] += idx + cid;
+        point->clusters[cid].input_ones.x += idx + cid;
     }
 }
 "#;
@@ -40,7 +40,7 @@ fn main() {
     let diff_space_len: usize = args[1].parse().unwrap();
     let pro_que = ocl::ProQue::builder()
         .src(DIFF_SPACE_SRC)
-        .dims(std::mem::size_of::<Point>() * diff_space_len)
+        .dims(diff_space_len)
         .build().unwrap();
     dbg!(std::mem::size_of::<Point>());
     dbg!(std::mem::align_of::<Point>());
