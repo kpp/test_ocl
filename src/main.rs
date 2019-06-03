@@ -38,6 +38,7 @@ fn main() {
     println!("{:?}", args);
 
     let diff_space_len: usize = args[1].parse().unwrap();
+    assert!(diff_space_len > 3);
     let pro_que = ocl::ProQue::builder()
         .src(DIFF_SPACE_SRC)
         .dims(diff_space_len)
