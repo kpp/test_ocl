@@ -47,7 +47,6 @@ fn main() {
 
     let mut vec = vec![Point::default(); diff_space_len];
     let buffer = pro_que.buffer_builder::<Point>()
-        .len(diff_space_len)
         .copy_host_slice(&vec)
         .build()
         .unwrap();
